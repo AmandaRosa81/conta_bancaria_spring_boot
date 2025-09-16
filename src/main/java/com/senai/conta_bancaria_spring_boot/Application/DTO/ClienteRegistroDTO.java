@@ -5,14 +5,16 @@ import com.senai.conta_bancaria_spring_boot.Domain.Entity.Conta;
 
 import java.util.List;
 
-public record ClienteDTO (
+public record ClienteRegistroDTO(
+        String id,
         String nome,
-        int cpf,
-        List<String> contas
+        String cpf,
+        List<Conta> contas
 ){
-    public static ClienteDTO fromEntity(Cliente cliente){
+    public static ClienteRegistroDTO fromEntity(Cliente cliente){
         if(cliente == null) return null;
-        return new ClienteDTO(
+        return new ClienteRegistroDTO(
+                cliente.getId(),
                 cliente.getNome(),
                 cliente.getCpf(),
                 cliente.getContas()

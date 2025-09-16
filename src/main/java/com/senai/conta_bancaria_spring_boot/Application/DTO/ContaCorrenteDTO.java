@@ -4,17 +4,15 @@ import com.senai.conta_bancaria_spring_boot.Domain.Entity.Cliente;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Conta;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.ContaCorrente;
 
+import java.math.BigDecimal;
+
 public record ContaCorrenteDTO(
-    int numero,
-    double saldo,
-    double limite,
-    double taxa
+    BigDecimal limite,
+    BigDecimal taxa
 ){
     public static ContaCorrenteDTO fromEntity(ContaCorrente contaCorrente){
         if(contaCorrente == null) return null;
         return new ContaCorrenteDTO(
-                contaCorrente.getNumero(),
-                contaCorrente.getSaldo(),
                 contaCorrente.getLimite(),
                 contaCorrente.getTaxa()
         );
@@ -22,8 +20,6 @@ public record ContaCorrenteDTO(
 
     public ContaCorrente toEntity (){
         ContaCorrente contaCorrente = new ContaCorrente();
-        contaCorrente.setNumero(this.numero);
-        contaCorrente.setSaldo(this.saldo);
         contaCorrente.setLimite(this.limite);
         contaCorrente.setTaxa(this.taxa);
 

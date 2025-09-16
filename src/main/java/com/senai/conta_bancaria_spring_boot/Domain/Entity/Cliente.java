@@ -4,28 +4,39 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table (name = "cliente",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = "cpf")
+        }
+)
+
 public class Cliente {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
     @NotBlank(message = "O campo nome do cliente não pode estar vazio!")
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 120)
     @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String nome;
 
     @NotNull(message = "O campo cpf do cliente não pode estar vazio")
-    @Column(nullable = false, length = 5)
-    private int cpf;
+    @Column(nullable = false, length = 11)
+    private String cpf;
 
-    @ElementCollection
-    @CollectionTable(name = "cliente_contas",
-            joinColumns = @JoinColumn(name = "conta_cliente"))
-    @Column(name = "contas")
-    private List<String> contas;
+    @OneToMany (mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Conta> contas;
 
+    @Column (nullable = false)
+    private Boolean ativo;
 }
