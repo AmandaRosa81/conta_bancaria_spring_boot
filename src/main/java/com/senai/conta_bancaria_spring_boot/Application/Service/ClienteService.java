@@ -24,7 +24,7 @@ public class ClienteService {
         var contas = cliente.getContas();
         var novaConta = dto.contaDTO().toEntity(cliente);
 
-        boolean jaTemTipo = contas.stream().anyMatch(conta -> conta.getClass().equals(dto.contaDTO().getClass()) && conta.isAtiva());
+        boolean jaTemTipo = contas.stream().anyMatch(conta -> conta.getClass().equals(novaConta.getClass()) && conta.getAtiva());
 
         return
     }
