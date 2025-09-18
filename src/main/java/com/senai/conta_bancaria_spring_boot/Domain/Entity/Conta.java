@@ -15,7 +15,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)//Estratégia
 @DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING, length = 20)//Descrição da coluna
 //Os dados que vão é tipo string, vai nome e tamanho 20
-@Table (name = "conta",
+@Table (name = "contaDTO",
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_conta_numero", columnNames = "numero"),
                 @UniqueConstraint(name = "uk_cliente_tipo", columnNames = {"cliente_id", "tipo_conta"})
@@ -30,11 +30,10 @@ public abstract class Conta {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @NotNull(message = "O campo número da conta não pode estar vazio!")
+    @NotNull(message = "O campo número da contaDTO não pode estar vazio!")
     @Column(nullable = false, length = 20)
     private String numero;
 
-    @PositiveOrZero(message = "O saldo inicial não pode ser negativo!")
     @Column(nullable = false, precision = 4)
     private BigDecimal saldo;
 
