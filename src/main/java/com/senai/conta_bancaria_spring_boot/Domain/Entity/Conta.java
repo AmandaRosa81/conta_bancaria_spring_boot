@@ -43,5 +43,7 @@ public abstract class Conta {
     @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_conta_cliente"))
     private Cliente cliente;
+
+    public abstract String getTipo();
 }
 

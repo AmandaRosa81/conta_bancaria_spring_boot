@@ -24,9 +24,11 @@ public class ContaCorrente extends Conta{
     @Column(precision = 4)
     private BigDecimal limite;
 
-    @NotNull(message = "O campo taxa da contaDTO corrente, não pode estar vazio!")
     @Column(precision = 5)
     private BigDecimal taxa;
 
-
+    @Override
+    public String getTipo(){
+        return "POUPANCA";
+    }
 }

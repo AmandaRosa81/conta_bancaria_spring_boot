@@ -6,8 +6,11 @@ import com.senai.conta_bancaria_spring_boot.Application.Service.ClienteService;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Cliente;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,7 +22,20 @@ public class ClienteController {
     private final ClienteService service;
 
     @PostMapping
-    public ClienteResponseDTO registrarCliente(@RequestBody ClienteRegistroDTO dto){
-        return service.registrarCliente(dto);
+    public ResponseEntity <ClienteResponseDTO> registrarCliente(@RequestBody ClienteRegistroDTO dto){
+        ClienteResponseDTO novoCliente = service.registrarCliente(dto);
+
+        return ResponseEntity.created(URI.create("/api/cliente/cpf/" +
+                novoCliente.cpf())).body(novoCliente);
+    }
+
+    @GetMapping
+    public  ResponseEntity <List<ClienteResponseDTO>> listarClientesAtivos(){
+        return ResponseEntity.ok(service.listarClientesAtivos());
+    }
+
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<ClienteResponseDTO> buscarClienteAtivoPorCpf(@PathVariable String cpf){
+        return ResponseEntity.ok(service.buscarClienteAtivoPorCpf(cpf));
     }
 }

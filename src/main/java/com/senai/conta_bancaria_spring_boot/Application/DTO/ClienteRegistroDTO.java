@@ -9,19 +9,8 @@ import java.util.List;
 public record ClienteRegistroDTO(
         String nome,
         String cpf,
-        boolean ativo,
-        List<Conta> contaDTO
+        ContaResumoDTO contaDTO
 ){
-    public static ClienteRegistroDTO fromEntity(Cliente cliente){
-        if(cliente == null) return null;
-        return new ClienteRegistroDTO(
-                cliente.getNome(),
-                cliente.getCpf(),
-                cliente.getAtivo(),
-                cliente.getContas()
-        );
-    }
-
     public Cliente toEntity(){
         return Cliente.builder()
                 .ativo(true)
@@ -30,16 +19,6 @@ public record ClienteRegistroDTO(
                 .contas(new ArrayList<Conta>())
                 .build();
     }
-
-
-//    public Cliente toEntity (Conta contaDTO){
-//        Cliente cliente = new Cliente();
-//        cliente.setNome(this.nome);
-//        cliente.setCpf(this.cpf);
-//        cliente.setContas(this.contas);
-//
-//        return cliente;
-//    }
 }
 
 

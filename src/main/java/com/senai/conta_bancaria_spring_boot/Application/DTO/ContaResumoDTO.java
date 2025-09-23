@@ -32,6 +32,14 @@ public record ContaResumoDTO(
         return  null;
     }
 
+    public static ContaResumoDTO fromEntity(Conta conta) {
+        return new ContaResumoDTO(
+                conta.getId(),
+                conta.getTipo(),
+                conta.getSaldo()
+        );
+    }
+
 //    public Conta toEntity (){
 //        Conta contaDTO = new Conta();
 //        contaDTO.setNumero(this.numero);

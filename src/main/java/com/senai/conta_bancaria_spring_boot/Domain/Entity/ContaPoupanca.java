@@ -19,4 +19,9 @@ public class ContaPoupanca extends Conta{
 
     @Column(precision = 5)
     private double rendimento;
+
+    @Override
+    public String getTipo(){
+        return "POUPANCA";
+    }
 }
