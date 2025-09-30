@@ -2,6 +2,7 @@ package com.senai.conta_bancaria_spring_boot.Interface_ui;
 
 import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteAtualizadoDTO;
 import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteResponseDTO;
+import com.senai.conta_bancaria_spring_boot.Application.DTO.ContaAtualizacaoDTO;
 import com.senai.conta_bancaria_spring_boot.Application.DTO.ContaResumoDTO;
 import com.senai.conta_bancaria_spring_boot.Application.Service.ContaService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,13 @@ public class ContaController {
     }
 
     @PutMapping("/numeroConta")
-    public ResponseEntity <ContaResumoDTO> atualizarConta(){
+    public ResponseEntity <ContaResumoDTO> atualizarConta(@PathVariable String numero, @RequestBody ContaAtualizacaoDTO dto){
+        return ResponseEntity.ok(service.atualizarConta(numero, dto));
+    }
 
-        return ResponseEntity.ok(service.atualizarConta());
+    @DeleteMapping("/{numeroConta}")
+    public ResponseEntity<Void> inativarConta(@PathVariable String numeroConta) {
+        service.inativarConta(numeroConta);
+        return ResponseEntity.noContent().build();
     }
 }

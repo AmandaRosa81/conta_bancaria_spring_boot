@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -18,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 public class ContaPoupanca extends Conta{
 
     @Column(precision = 5)
-    private double rendimento;
+    private BigDecimal rendimento;
 
     @Override
     public String getTipo(){
