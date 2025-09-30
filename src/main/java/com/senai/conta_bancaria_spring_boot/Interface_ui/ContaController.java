@@ -1,12 +1,10 @@
 package com.senai.conta_bancaria_spring_boot.Interface_ui;
 
-import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteAtualizadoDTO;
-import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteResponseDTO;
-import com.senai.conta_bancaria_spring_boot.Application.DTO.ContaAtualizacaoDTO;
-import com.senai.conta_bancaria_spring_boot.Application.DTO.ContaResumoDTO;
+import com.senai.conta_bancaria_spring_boot.Application.DTO.*;
 import com.senai.conta_bancaria_spring_boot.Application.Service.ContaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +27,8 @@ public class ContaController {
     }
 
     @PutMapping("/numeroConta")
-    public ResponseEntity <ContaResumoDTO> atualizarConta(@PathVariable String numero, @RequestBody ContaAtualizacaoDTO dto){
-        return ResponseEntity.ok(service.atualizarConta(numero, dto));
+    public ResponseEntity <ContaResumoDTO> atualizarConta(@PathVariable String numeroConta, @RequestBody ContaAtualizacaoDTO dto){
+        return ResponseEntity.ok(service.atualizarConta(numeroConta, dto));
     }
 
     @DeleteMapping("/{numeroConta}")
@@ -38,4 +36,21 @@ public class ContaController {
         service.inativarConta(numeroConta);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{numeroConta}/sacar")
+    public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numeroConta, @RequestBody ValorSaqueDepositoDTO dto) {
+        return ResponseEntity.ok(service.sacar(numeroConta, dto));
+    }
+
+    @PutMapping("/{numeroConta}/depositar")
+    public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numeroConta, @RequestBody ValorSaqueDepositoDTO dto) {
+        return ResponseEntity.ok(service.depositar(numeroConta, dto));
+    }
+
+    @PutMapping("/{numeroConta}/transferir")
+    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numeroConta,
+                                           @RequestBody ContaTransferenciaDTO dto) {
+        return ResponseEntity.ok (service.transferir(numeroConta, dto));
+    }
+
 }
