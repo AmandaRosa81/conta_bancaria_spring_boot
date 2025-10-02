@@ -21,10 +21,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 
 public class ContaCorrente extends Conta{
-    @Column(precision = 4)
+    @Column(precision = 19, scale = 2)
     private BigDecimal limite;
 
-    @Column(precision = 5)
+    @Column(precision = 19, scale = 2)
     private BigDecimal taxa;
 
     @Override
@@ -34,16 +34,14 @@ public class ContaCorrente extends Conta{
 
     @Override
     public void sacar(BigDecimal valor) {
-        if (valor.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Valor inválido para saque.");
-        }
+        validarValorMaiorQueZero(valor);
 
         BigDecimal custoSaque = valor.multiply(taxa);
         BigDecimal totalSaque = valor.add(custoSaque);
 
-        if (getSaldo().add(limite).compareTo(totalSaque)<0) {
+        if (this.getSaldo().add(this.limite).compareTo(totalSaque)<0) {
             throw new IllegalArgumentException("Saldo insuficiente para saque, considerando o limite.");
         }
-        setSaldo(getSaldo().subtract(totalSaque));
+        this.setSaldo(this.getSaldo().subtract(totalSaque));
     }
 }

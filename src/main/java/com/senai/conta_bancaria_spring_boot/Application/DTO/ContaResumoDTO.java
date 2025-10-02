@@ -17,15 +17,18 @@ public record ContaResumoDTO(
         if ("CORRENTE".equalsIgnoreCase(tipo)){
             return ContaCorrente.builder()
                     .cliente(cliente)
-                    .numero(numero)
-                    .saldo(saldo)
+                    .numero(this.numero)
+                    .saldo(this.saldo)
+                    .taxa(new BigDecimal("0.05"))
+                    .limite(new BigDecimal("500.0"))
                     .ativa(true)
                     .build();
         }else if ("POUPANCA".equalsIgnoreCase(tipo)){
             return ContaPoupanca.builder()
                     .cliente(cliente)
-                    .numero(numero)
-                    .saldo(saldo)
+                    .numero(this.numero)
+                    .saldo(this.saldo)
+                    .rendimento(new BigDecimal("0.01"))
                     .ativa(true)
                     .build();
         }
