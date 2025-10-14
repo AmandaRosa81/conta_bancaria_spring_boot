@@ -12,7 +12,7 @@ import java.util.List;
 public record ClienteRegistroDTO(
         @NotBlank(message = "O campo nome do cliente não pode estar vazio!")
         String nome,
-        @NotNull(message = "O campo cpf do cliente não pode estar vazio")
+        @NotBlank(message = "O campo cpf do cliente não pode estar vazio!")
         String cpf,
         @Valid
         @NotNull

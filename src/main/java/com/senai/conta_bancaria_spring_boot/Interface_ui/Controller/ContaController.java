@@ -27,7 +27,7 @@ public class ContaController {
     }
 
     @PutMapping("/numeroConta")
-    public ResponseEntity <ContaResumoDTO> atualizarConta(@PathVariable String numeroConta, @RequestBody ContaAtualizacaoDTO dto){
+    public ResponseEntity <ContaResumoDTO> atualizarConta(@PathVariable String numeroConta,@Valid @RequestBody ContaAtualizacaoDTO dto){
         return ResponseEntity.ok(service.atualizarConta(numeroConta, dto));
     }
 
@@ -38,17 +38,17 @@ public class ContaController {
     }
 
     @PostMapping("/{numeroConta}/sacar")
-    public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numeroConta, @RequestBody ValorSaqueDepositoDTO dto) {
+    public ResponseEntity<ContaResumoDTO> sacar(@PathVariable String numeroConta,@Valid @RequestBody ValorSaqueDepositoDTO dto) {
         return ResponseEntity.ok(service.sacar(numeroConta, dto));
     }
 
     @PostMapping("/{numeroConta}/depositar")
-    public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numeroConta, @Valid @RequestBody ValorSaqueDepositoDTO dto) {
+    public ResponseEntity<ContaResumoDTO> depositar(@PathVariable String numeroConta,@Valid @RequestBody ValorSaqueDepositoDTO dto) {
         return ResponseEntity.ok(service.depositar(numeroConta, dto));
     }
 
     @PostMapping("/{numeroConta}/transferir")
-    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numeroConta, @RequestBody ContaTransferenciaDTO dto) {
+    public ResponseEntity<ContaResumoDTO> transferir(@PathVariable String numeroConta,@Valid @RequestBody ContaTransferenciaDTO dto) {
         return ResponseEntity.ok (service.transferir(numeroConta, dto));
     }
 
