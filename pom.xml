@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version>
+        <version>3.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.senai</groupId>
-    <artifactId>modelo_autenticacao_autorizacao</artifactId>
+    <artifactId>conta_bancaria</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>modelo_autenticacao_autorizacao</name>
-    <description>Demo project for Spring Boot</description>
+    <name>conta_bancaria</name>
+    <description>Spring Boot conta bancaria</description>
     <url/>
     <licenses>
         <license/>

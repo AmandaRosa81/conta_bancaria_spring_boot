@@ -1,11 +1,9 @@
 package com.senai.conta_bancaria_spring_boot.Domain.Entity;
 
+import com.senai.conta_bancaria_spring_boot.Domain.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

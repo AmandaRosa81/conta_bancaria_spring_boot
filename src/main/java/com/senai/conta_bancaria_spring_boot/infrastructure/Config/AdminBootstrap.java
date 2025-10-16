@@ -2,6 +2,7 @@ package com.senai.conta_bancaria_spring_boot.infrastructure.Config;
 
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Gerente;
 import com.senai.conta_bancaria_spring_boot.Domain.Repository.GerenteRepository;
+import com.senai.conta_bancaria_spring_boot.Domain.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -39,7 +40,7 @@ public class AdminBootstrap implements CommandLineRunner{
                             .role(Role.ADMIN)
                             .build();
                     gerenteRepository.save(admin);
-                    System.out.println("⚡ Usuário admin provisório criado: " + adminEmail);
+                    System.out.println(" Usuário admin provisório criado: " + adminEmail);
                 }
         );
     }
