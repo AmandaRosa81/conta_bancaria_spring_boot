@@ -11,6 +11,7 @@ import com.senai.conta_bancaria_spring_boot.Domain.Execption.RendimentoInvalidoE
 import com.senai.conta_bancaria_spring_boot.Domain.Execption.TipoDeContaInvalidaException;
 import com.senai.conta_bancaria_spring_boot.Domain.Repository.ContaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class ContaService {
 
     private final ContaRepository repository;
 
+    @PreAuthorize("hasRole('CLIENTE')")
     @Transactional(readOnly = true)
     public List<ContaResumoDTO> listarContasAtivas(){
         return repository.findAllByAtivaTrue().stream().map(ContaResumoDTO::fromEntity).toList();

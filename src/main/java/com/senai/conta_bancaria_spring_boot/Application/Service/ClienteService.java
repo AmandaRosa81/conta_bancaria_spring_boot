@@ -6,6 +6,8 @@ import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteResponseDTO;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Cliente;
 import com.senai.conta_bancaria_spring_boot.Domain.Repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +19,9 @@ import java.util.List;
 public class ClienteService {
 
     private final ClienteRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
+    @PreAuthorize("hasAnyRole('ADMIN','GERENTE')")
     public ClienteResponseDTO registrarCliente(ClienteRegistroDTO dto){
 
         var cliente = repository.findByCpfAndAtivoTrue(dto.cpf()).orElseGet( //orElseget, ele vai ver se tem o cpf,
@@ -35,6 +39,7 @@ public class ClienteService {
             throw new RuntimeException("O cliente já possui uma conta desse tipo.");
 
         cliente.getContas().add(novaConta);
+        cliente.setSenha(passwordEncoder.encode(dto.senha()));
 
         return ClienteResponseDTO.fromEntity(repository.save(cliente));
     }
