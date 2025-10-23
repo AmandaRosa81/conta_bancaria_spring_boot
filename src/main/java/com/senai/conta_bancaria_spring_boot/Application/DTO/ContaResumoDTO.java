@@ -5,19 +5,26 @@ import com.senai.conta_bancaria_spring_boot.Domain.Entity.Conta;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.ContaCorrente;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.ContaPoupanca;
 import com.senai.conta_bancaria_spring_boot.Domain.Execption.TipoDeContaInvalidaException;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.aspectj.apache.bcel.generic.RET;
+import org.aspectj.bridge.IMessage;
 
 import java.math.BigDecimal;
 
 public record ContaResumoDTO(
+            @Schema(description = "Número da conta", examples = "Ex: 723-0")
             @NotBlank(message = "O campo número da contaDTO não pode estar vazio!")
             String numero,
+
+            @Schema(description = "Tipo de conta", examples = "Ex: POUPANÇA")
             @NotBlank(message = "Tipo da conta não pode estar vazio")
             String tipo,
+
+            @Schema(description = "Saldo da conta", examples = "Ex: 2500")
             @NotNull(message = "O saldo não pode ser nulo")
             @Positive(message = "O saldo não pode ser negativo")
             BigDecimal saldo
