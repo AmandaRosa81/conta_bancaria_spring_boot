@@ -22,15 +22,6 @@ public class GerenteService {
 
     private final PasswordEncoder encoder;
 
-    public GerenteDTO registrarGerente(GerenteDTO dto) {
-
-        var gerente = gerenteRepository.findByCpfAndAtivoTrue(dto.cpf()).orElseGet( //orElseget, ele vai ver se tem o cpf,
-                // se não for achado por ele a gente vai achar pelo ativo da contaDTO
-                () -> gerenteRepository.save(dto.toEntity())
-        );
-        return ClienteResponseDTO.fromEntity(gerenteRepository.save(gerente));
-    }
-
     @PreAuthorize("hasAnyRole('ADMIN','GERENTE')")
     public List<GerenteDTO> listarTodosGerentes(){
         return gerenteRepository.findAll().stream()

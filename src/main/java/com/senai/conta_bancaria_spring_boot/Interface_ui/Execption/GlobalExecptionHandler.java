@@ -6,7 +6,6 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -76,8 +75,8 @@ public class GlobalExecptionHandler {
     }
 
     //RendimentoInvalidoException
-    @ExceptionHandler(EntidadeNaoEncontradaExecption.class)
-    public ProblemDetail handleEntidadeNaoEncontrada (EntidadeNaoEncontradaExecption ex, HttpServletRequest request){
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ProblemDetail handleEntidadeNaoEncontrada (EntidadeNaoEncontradaException ex, HttpServletRequest request){
         return ProblemDetailUtils.buildProblem(
                 HttpStatus.NOT_FOUND,
                 "Valor de rendimento não compatível com o tipo de operação",

@@ -1,4 +1,6 @@
 package com.senai.conta_bancaria_spring_boot.infrastructure.Security;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -12,57 +14,74 @@ import java.util.Date;
 
 @Service
 public class JwtService {
+
     private final Key key;
-    private final long expirationSeconds;
+    private final long accessExpSeconds;
+    private final long refreshExpSeconds;
 
     public JwtService(
             @Value("${security.jwt.secret}") String secret,
-            @Value("${security.jwt.expiration:3600}") long expirationSeconds) {
+            @Value("${security.jwt.access-expiration:900}") long accessExpSeconds,
+            @Value("${security.jwt.refresh-expiration:604800}") long refreshExpSeconds
+    ) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
-        this.expirationSeconds = expirationSeconds;
+        this.accessExpSeconds = accessExpSeconds;
+        this.refreshExpSeconds = refreshExpSeconds;
     }
 
-    public String generateToken(String email, String role) {
+    public String generateAccessToken(String email, String role) {
         Instant now = Instant.now();
         return Jwts.builder()
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plusSeconds(expirationSeconds)))
+                .setExpiration(Date.from(now.plusSeconds(accessExpSeconds)))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String generateRefreshToken(String email) {
+        Instant now = Instant.now();
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(Date.from(now))
+                .setExpiration(Date.from(now.plusSeconds(refreshExpSeconds)))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String extractEmail(String token) {
+        return parseClaims(token).getSubject();
+    }
+
+    public String extractRole(String token) {
+        return (String) parseClaims(token).get("role");
+    }
+
+    private Claims parseClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
     }
 
-    public String extractRole(String token) {
-        return (String) Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("role");
-    }
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String email = extractEmail(token);
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
-        Date expiration = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
+        Date expiration = parseClaims(token).getExpiration();
         return expiration.before(new Date());
     }
 
+    public boolean isValid(String token) {
+        try {
+            parseClaims(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
+    }
 }

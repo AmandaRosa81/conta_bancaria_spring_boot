@@ -10,7 +10,20 @@ public class AuthDTO {
             @Schema(description = "Senha de login", examples = "Ex: 94327038M&")
             String senha
     ) {}
+
     public record TokenResponse(
             String token
+    ) {}
+
+    public record AuthResponse(
+            String accessToken, String refreshToken
+    ) {}
+
+    public record RefreshRequest(
+            String refreshToken
+    ) {}
+
+    public record UserResponse(
+            String nome, String email, String role
     ) {}
 }
