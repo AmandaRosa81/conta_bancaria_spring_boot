@@ -53,7 +53,7 @@ public record ContaResumoDTO(
 
         public static ContaResumoDTO fromEntity(Conta conta) {
             return new ContaResumoDTO(
-                    conta.getId(),
+                    conta.getNumero(),
                     conta.getTipo(),
                     conta.getSaldo()
             );

@@ -16,8 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)//Estratégia
-@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING, length = 20)//Descrição da coluna
-//Os dados que vão é tipo string, vai nome e tamanho 20
+@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING, length = 20)
 @Table (name = "contaDTO",
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_conta_numero", columnNames = "numero"),
