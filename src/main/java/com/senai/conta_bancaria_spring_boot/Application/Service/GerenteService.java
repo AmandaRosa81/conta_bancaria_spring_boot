@@ -1,11 +1,8 @@
 package com.senai.conta_bancaria_spring_boot.Application.Service;
 
-import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteRegistroDTO;
-import com.senai.conta_bancaria_spring_boot.Application.DTO.ClienteResponseDTO;
 import com.senai.conta_bancaria_spring_boot.Application.DTO.GerenteDTO;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Gerente;
 import com.senai.conta_bancaria_spring_boot.Domain.Repository.GerenteRepository;
-import com.senai.conta_bancaria_spring_boot.Domain.UsuarioNaoEncontradoException;
 import com.senai.conta_bancaria_spring_boot.Domain.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
