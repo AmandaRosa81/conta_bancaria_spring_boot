@@ -1,5 +1,6 @@
 package com.senai.conta_bancaria_spring_boot.Domain.Entity;
 
+import com.senai.conta_bancaria_spring_boot.Domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,7 +30,7 @@ public class Pagamento {
 
     private String dataPagamento;
 
-    private String status;
+    private Status status;
 
     @ManyToMany
     @JoinTable(
