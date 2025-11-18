@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public record ServicoDTO (
         @Schema(description = "ID do serviço", example = "1")
         Long id,
-        @NotBlank(message = "Descrição é obrigatória")
+        @NotBlank(message = "Descrição é obrigatória!")
         @Schema(description = "Descrição do serviço", example = "Troca de óleo sintético")
         String descricao,
 

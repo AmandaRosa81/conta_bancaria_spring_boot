@@ -13,7 +13,7 @@ public record PagamentoDTO (
 
         @NotBlank(message = "O campo valor não pode estar em branco!")
         @Schema(description = "Valor pago no boleto", example = "300")
-        BigDecimal valor,
+        BigDecimal valorPago,
 
         @NotBlank(message = "O campo data do pagamento não pode estar em branco!")
         @Schema(description = "Data do pagamento", example = "15//08/2025")
@@ -21,6 +21,6 @@ public record PagamentoDTO (
 
         @NotBlank(message = "O campo id não pode estar em branco!")
         @Schema(description = "IDs das taxas associadas ao pagamento", example = "3569721658942350379054")
-        Set<String> idsTaxas
+        Set<String> taxas
 ) {
 }
