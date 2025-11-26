@@ -38,7 +38,7 @@ public class PagamentoController {
 
             Set<Taxa> taxas = new HashSet<>();
             for (String taxaId : pagamentoDTO.taxas()){
-                Taxa taxa =  taxaRepository.findById(taxaId)
+                Taxa taxa =  taxaRepository.findById(taxaId);
                         .orElseThrow(() -> new RuntimeException("Taxa não encontrada: " + taxaId));
                 taxas.add(taxa);
             }
