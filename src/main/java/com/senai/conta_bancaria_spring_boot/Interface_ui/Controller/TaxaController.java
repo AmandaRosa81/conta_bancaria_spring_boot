@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/taxas")
+@RequestMapping("/api/taxas")
 @RequiredArgsConstructor
 public class TaxaController {
 
