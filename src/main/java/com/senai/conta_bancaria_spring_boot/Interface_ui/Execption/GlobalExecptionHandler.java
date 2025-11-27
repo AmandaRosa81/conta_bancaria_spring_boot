@@ -74,7 +74,7 @@ public class GlobalExecptionHandler {
                 );
     }
 
-    //RendimentoInvalidoException
+    //EntidadeNaoEncontradaException
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
     public ProblemDetail handleEntidadeNaoEncontrada (EntidadeNaoEncontradaException ex, HttpServletRequest request){
         return ProblemDetailUtils.buildProblem(
@@ -182,4 +182,62 @@ public class GlobalExecptionHandler {
         problem.setProperty("errors", errors);
         return problem;
     }
+
+    //TaxaInvalidaException
+    @ExceptionHandler(TaxaInvalidaException.class)
+    public ProblemDetail handleTaxaInvalida (TaxaInvalidaException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "Taxa inválida, erro ao processar!",
+                ex.getMessage(),
+                request.getRequestURI()
+            );
+    }
+
+    //PagamentoInvalidoException
+    @ExceptionHandler(PagamentoInvalidoException.class)
+    public ProblemDetail handlePagamentoInvalido (PagamentoInvalidoException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "Pagamento Inválido!",
+                ex.getMessage(),
+                request.getRequestURI()
+                );
+    }
+
+    //TaxaNaoEncontradaException
+    @ExceptionHandler(TaxaNaoEncontradaException.class)
+    public ProblemDetail handleTaxaNaoEncontrada (TaxaNaoEncontradaException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+            HttpStatus.BAD_REQUEST,
+                "Taxa não encontrada.",
+                ex.getMessage(),
+                request.getRequestURI()
+            );
+    }
+
+    //PagamentoNaoPendenteException
+    @ExceptionHandler(PagamentoNaoPendenteException.class)
+    public ProblemDetail handlePagamentoNaoPendente (PagamentoNaoPendenteException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "Nenhum pagamento pendente!",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
+    //PagamentoDeveTerUmaTaxaAssociadaException
+    @ExceptionHandler(PagamentoDeveTerUmaTaxaAssociadaException.class)
+    public ProblemDetail handlePagamentoDeveTerUmaTaxaAssociada (PagamentoDeveTerUmaTaxaAssociadaException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.BAD_REQUEST,
+                "Para ser feito o pagamento, deve haver ao menos uma taxa associada!",
+                ex.getMessage(),
+                request.getRequestURI()
+            );
+    }
+
+
+
 }

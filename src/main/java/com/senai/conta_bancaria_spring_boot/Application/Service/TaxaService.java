@@ -28,12 +28,12 @@ public class TaxaService {
         return taxaRepository.findAll();
     }
 
-    public Taxa findById(Long id) {
+    public Taxa findById(String id) {
         return taxaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Taxa não encontrada"));
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         taxaRepository.deleteById(id);
     }
 }

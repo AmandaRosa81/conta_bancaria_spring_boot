@@ -4,6 +4,7 @@ import com.senai.conta_bancaria_spring_boot.Application.DTO.PagamentoDTO;
 import com.senai.conta_bancaria_spring_boot.Application.Service.PagamentoAppService;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Pagamento;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Taxa;
+import com.senai.conta_bancaria_spring_boot.Domain.Execption.PagamentoInvalidoException;
 import com.senai.conta_bancaria_spring_boot.Domain.Repository.ContaRepository;
 import com.senai.conta_bancaria_spring_boot.Domain.Repository.TaxaRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,7 @@ public class PagamentoController {
 
             return new ResponseEntity<>("Pagamento realizado com sucesso. Status: " + pagamento.getStatus(), HttpStatus.OK);
         }catch (RuntimeException e){
-            return new ResponseEntity<>("Erro ao processar o pagamento: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new PagamentoInvalidoException("Erro ao processar o pagamento: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -27,12 +27,12 @@ public class TaxaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Taxa> findById(@PathVariable Long id) {
+    public ResponseEntity<Taxa> findById(@PathVariable String id) {
         return ResponseEntity.ok(taxaService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         taxaService.delete(id);
         return ResponseEntity.noContent().build();
     }

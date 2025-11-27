@@ -2,6 +2,7 @@ package com.senai.conta_bancaria_spring_boot.Application.Service;
 
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Pagamento;
 import com.senai.conta_bancaria_spring_boot.Domain.Entity.Taxa;
+import com.senai.conta_bancaria_spring_boot.Domain.Execption.ValoresNegativosExecption;
 import com.senai.conta_bancaria_spring_boot.Domain.enums.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,11 @@ public class PagamentoDomainService {
 
     public void validarPagamento(Pagamento pagamento) throws IllegalArgumentException{
         if (pagamento.getStatus() != Status.FALHA){
-            throw new IllegalArgumentException ("O pagamento está pendente!");
+            throw new IllegalArgumentException ("O pagamento não está pendente!");
         }
 
         if (pagamento.getValorPago().compareTo(BigDecimal.ZERO) <= 0){
-            throw new IllegalArgumentException("O valor do pagamento deve ser maior que zero!");
+            throw new ValoresNegativosExecption("pagamento");
         }
 
         if (pagamento.getTaxas().isEmpty()){
