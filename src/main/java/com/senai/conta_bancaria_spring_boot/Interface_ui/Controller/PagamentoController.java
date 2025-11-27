@@ -37,7 +37,7 @@ public class PagamentoController {
             var conta = contaOpt.get();
 
             Set<Taxa> taxas = new HashSet<>();
-            for (String taxaId : pagamentoDTO.idsTaxas()){
+            for (String taxaId : pagamentoDTO.taxas()){
                 Taxa taxa =  taxaRepository.findById(taxaId)
                         .orElseThrow(() -> new RuntimeException("Taxa não encontrada: " + taxaId));
                 taxas.add(taxa);
@@ -45,7 +45,7 @@ public class PagamentoController {
 
             Pagamento pagamento = new Pagamento();
             pagamento.setConta(conta);
-            pagamento.setValorPago(pagamentoDTO.valor());
+            pagamento.setValorPago(pagamentoDTO.valorPago());
             pagamento.setDataPagamento(pagamentoDTO.dataPagamento());
 
             pagamentoAppService.processarPagamento(pagamento, taxas);
