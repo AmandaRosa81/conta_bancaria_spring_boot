@@ -238,6 +238,15 @@ public class GlobalExecptionHandler {
             );
     }
 
-
+    //BoletoVencidoException
+    @ExceptionHandler(BoletoVencidoException.class)
+    public ProblemDetail handleBoletoVencido (BoletoVencidoException ex, HttpServletRequest request){
+        return ProblemDetailUtils.buildProblem(
+                HttpStatus.UNPROCESSABLE_ENTITY,
+                "Boleto vencido! Não há mais como pagar.",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+    }
 
 }

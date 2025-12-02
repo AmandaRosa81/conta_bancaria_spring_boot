@@ -53,7 +53,7 @@ public class PagamentoController {
 
             return new ResponseEntity<>("Pagamento realizado com sucesso. Status: " + pagamento.getStatus(), HttpStatus.OK);
         }catch (RuntimeException e){
-            return new PagamentoInvalidoException("Erro ao processar o pagamento: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw  new PagamentoInvalidoException();
         }
     }
 }
