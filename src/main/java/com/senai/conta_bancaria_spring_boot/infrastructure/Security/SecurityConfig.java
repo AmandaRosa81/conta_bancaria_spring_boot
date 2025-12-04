@@ -26,7 +26,7 @@ public class SecurityConfig {
         http.csrf(
                         AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**","/auth/refresh", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/auth/**","/auth/refresh", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/api/gerente").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/gerente").hasAnyRole("ADMIN","GERENTE")
@@ -37,10 +37,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/conta/**").hasRole("CLIENTE")
                         .requestMatchers(HttpMethod.GET, "/api/conta").hasAnyRole("ADMIN","GERENTE","CLIENTE")
 
-                        .requestMatchers(HttpMethod.POST, "/api/pagamentos").hasRole("CLIENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/pagamentos").hasAnyRole("CLIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/pagamentos").hasAnyRole("CLIENTE", "GERENTE", "ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/taxas").hasAnyRole("GERENTE")
+                        .requestMatchers(HttpMethod.POST, "/api/taxas").hasAnyRole("GERENTE","ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/taxas").hasAnyRole("CLIENTE", "GERENTE", "ADMIN")
 
 
