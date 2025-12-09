@@ -27,7 +27,7 @@ public class PagamentoController {
     private final TaxaRepository taxaRepository;
     private final ContaRepository contaRepository;
 
-    @PostMapping
+    @PostMapping("/{id}")
     public ResponseEntity<String> processarPagamento (@RequestBody PagamentoDTO pagamentoDTO){
         try {
             var contaOpt = contaRepository.findByNumeroAndAtivaTrue(pagamentoDTO.contaNumero());
